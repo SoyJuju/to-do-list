@@ -157,9 +157,16 @@ body {
   margin-inline: auto;
   position: relative;
 }
-.popup_container .popup h2 {
+.popup_container .popup .popup_heading {
+  display: flex;
+  align-items: center;
   color: #2e3239;
   margin-bottom: 0.4rem;
+}
+.popup_container .popup .popup_heading img {
+  width: 1.7rem;
+  height: 1.7rem;
+  margin-right: 0.5rem;
 }
 .popup_container .popup .quit {
   position: absolute;

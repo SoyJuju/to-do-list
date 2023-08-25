@@ -1,6 +1,7 @@
 let to_do_list = document.getElementById('to-do-list');
 let add_btn = document.getElementById('add-items-button');
 const popup_box = document.querySelector('.popup_container');
+const container = document.getElementById('container');
 let counter = 0;
 let len_counter = 0;
 let edit_counter = 0;
@@ -11,6 +12,7 @@ let del_counter = 0;
 function addList(item_name) {
   let to_do_item = document.createElement('li');
   let to_do_container = document.createElement('div');
+
   to_do_container.classList.add('to-do-items');
 
   let to_do_text = document.createElement('p');
@@ -119,10 +121,18 @@ function deleteItems(map, del_btns) {
   }
 }
 
+function disableBTN(btn_arr, status) {
+  for (let i = 0; i < counter - del_counter; i++) {
+    btn_arr[i].disabled = status;
+  }
+}
+
 function inputPopup(text, index, btn_arr) {
   popup_box.toggleAttribute('data-visible');
   popup_box.setAttribute('aria-expnded', true);
+  container.style.filter = 'blur(7px)';
   document.getElementById('edit-box').value = text;
+  disableBTN(btn_arr, true);
 
   const edit_btn = document.getElementById('edit-items-button');
   edit_btn.addEventListener('click', () => {
@@ -130,12 +140,16 @@ function inputPopup(text, index, btn_arr) {
       document.getElementById('edit-box').value;
     popup_box.removeAttribute('data-visible');
     popup_box.setAttribute('aria-expnded', false);
+    container.style.filter = 'none';
+    disableBTN(btn_arr, false);
   });
 
   const quit_btn = document.getElementById('quit-btn');
   quit_btn.addEventListener('click', () => {
     popup_box.removeAttribute('data-visible');
     popup_box.setAttribute('aria-expnded', false);
+    container.style.filter = 'none';
+    disableBTN(btn_arr, false);
   });
 }
 
