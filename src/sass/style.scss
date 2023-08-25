@@ -41,46 +41,6 @@ body {
     }
   }
 
-  .form {
-    display: flex;
-    align-items: center;
-    font-size: 0.9rem;
-
-    flex-wrap: wrap;
-
-    .title-input {
-      padding: 0.6rem 1rem;
-      border: none;
-      outline: none;
-      box-shadow: 0 0 0.75em rgb(0, 0, 0, 0.2);
-      border-radius: 0.3rem;
-      margin-right: 0.7rem;
-      width: 12.1rem;
-    }
-
-    .get-items-button {
-      background-color: $primary-color-400;
-      color: $color-neutral-0;
-      box-shadow: 0 0 0.75em rgb(0, 0, 0, 0.2);
-
-      border: 0;
-      border-radius: 0.3rem;
-
-      width: 4rem;
-      height: 2.2rem;
-
-      &:hover {
-        cursor: pointer;
-      }
-    }
-
-    img {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
-
   .to-do-list {
     display: grid;
     border-radius: 0.3rem;
@@ -147,4 +107,108 @@ body {
       }
     }
   }
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+
+  flex-wrap: wrap;
+
+  .title-input {
+    padding: 0.6rem 1rem;
+    border: none;
+    outline: none;
+    box-shadow: 0 0 0.75em rgb(0, 0, 0, 0.2);
+    border-radius: 0.3rem;
+    margin-right: 0.7rem;
+    width: 12.1rem;
+  }
+
+  .get-items-button {
+    background-color: $primary-color-400;
+    color: $color-neutral-0;
+    box-shadow: 0 0 0.75em rgb(0, 0, 0, 0.2);
+
+    border: 0;
+    border-radius: 0.3rem;
+
+    width: 4rem;
+    height: 2.2rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.popup_container {
+  display: none;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0.75em rgb(0, 0, 0, 0.2);
+  background-color: white;
+  border-radius: 0.5rem;
+  width: 20rem;
+  padding-block: 1.2rem;
+
+  .edit-items-button {
+    background-color: $primary-color-400;
+    color: $color-neutral-0;
+    box-shadow: 0 0 0.75em rgb(0, 0, 0, 0.2);
+
+    border: 0;
+    border-radius: 0.3rem;
+
+    width: 4rem;
+    height: 2.2rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .popup {
+    width: fit-content;
+    margin-inline: auto;
+    position: relative;
+
+    h2 {
+      color: $primary-color-400;
+      margin-bottom: 0.4rem;
+    }
+
+    .quit {
+      position: absolute;
+      right: -1rem;
+      top: -0.5rem;
+      border: 0;
+      background-color: transparent;
+
+      img {
+        width: 0.85rem;
+        height: 0.7rem;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.popup_container[data-visible] {
+  display: block;
+  position: absolute;
+  z-index: 1;
 }

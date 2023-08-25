@@ -1,7 +1,9 @@
 let to_do_list = document.getElementById('to-do-list');
 let add_btn = document.getElementById('add-items-button');
+const popup_box = document.querySelector('.popup_container');
 let counter = 0;
 let len_counter = 0;
+let edit_counter = 0;
 let counter_limit = 0;
 let up_index_counter = 0;
 let del_counter = 0;
@@ -46,8 +48,32 @@ function generateMap() {
   return map;
 }
 
+function findIndex(map, index) {
+  let edit_index_forward = 0;
+
+  if (index === 0) {
+    return index;
+  }
+
+  for (let i = index - 1; i >= 0; i--) {
+    if (map[i] === 0) {
+      for (let i = index; i >= 0; i--) {
+        if (map[i] === 1) {
+          edit_index_forward++;
+        }
+      }
+      return index - edit_index_forward;
+    }
+  }
+
+  for (let i = index; i < counter; i++) {
+    if (map[i] === 0) {
+      return 0;
+    }
+  }
+}
+
 function getIndex(map, index) {
-  console.log('og-index', index);
   let down_index_counter = 0;
   let down_index_forward = 0;
 
@@ -58,27 +84,19 @@ function getIndex(map, index) {
   }
 
   for (let i = index - 1; i >= 0; i--) {
-    console.log('i', i);
-    console.log(map[i] === 0);
-
     if (map[i] === 0) {
       for (let i = index; i >= 0; i--) {
         if (map[i] === 1) {
           down_index_forward++;
         }
       }
-
       map[i + 1 + down_index_counter] = 1;
-
-      console.log(down_index_forward);
       return index - down_index_forward;
     }
     down_index_counter++;
-    console.log('down', down_index_counter);
   }
 
   for (let i = index; i < counter; i++) {
-    console.log('up');
     if (map[i] === 0) {
       up_index_counter++;
       map[i] = 1;
@@ -92,10 +110,8 @@ function deleteItems(map, del_btns) {
     del_btns[a].addEventListener('click', () => {
       len_counter++;
       if (len_counter + a === counter) {
-        Index = getIndex(map, a);
-        console.log(map);
-        console.log('main-index', Index);
-        del_btns[Index].parentElement.parentElement.parentElement.remove();
+        let del_index = getIndex(map, a);
+        del_btns[del_index].parentElement.parentElement.parentElement.remove();
         len_counter = 0;
         del_counter++;
       }
@@ -103,15 +119,38 @@ function deleteItems(map, del_btns) {
   }
 }
 
-function inputPopup() {
-  let container = document.createElement('div');
+function inputPopup(text, index, btn_arr) {
+  popup_box.toggleAttribute('data-visible');
+  popup_box.setAttribute('aria-expnded', true);
+  document.getElementById('edit-box').value = text;
+
+  const edit_btn = document.getElementById('edit-items-button');
+  edit_btn.addEventListener('click', () => {
+    btn_arr[index].parentElement.parentElement.firstChild.innerHTML =
+      document.getElementById('edit-box').value;
+    popup_box.removeAttribute('data-visible');
+    popup_box.setAttribute('aria-expnded', false);
+  });
+
+  const quit_btn = document.getElementById('quit-btn');
+  quit_btn.addEventListener('click', () => {
+    popup_box.removeAttribute('data-visible');
+    popup_box.setAttribute('aria-expnded', false);
+  });
 }
 
-function editItems(edit_btns) {
-  let currentItems = counter - del_counter;
-  for (let a = 0; a < currentItems; a++) {
+function editItems(map, edit_btns) {
+  for (let a = 0; a < counter; a++) {
     edit_btns[a].addEventListener('click', () => {
-      inputPopup();
+      edit_counter++;
+      if (edit_counter + a === counter) {
+        let edit_index = findIndex(map, a);
+        current_text =
+          edit_btns[edit_index].parentElement.parentElement.firstChild
+            .innerHTML;
+        inputPopup(current_text, edit_index, edit_btns);
+        edit_counter = 0;
+      }
     });
   }
 }
@@ -131,7 +170,7 @@ function addItem() {
 
   let map = generateMap();
   deleteItems(map, del_btns);
-  editItems(edit_btns);
+  editItems(map, edit_btns);
 }
 
 add_btn.addEventListener('click', () => {
