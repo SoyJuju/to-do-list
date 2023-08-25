@@ -42,38 +42,6 @@ body {
   text-align: center;
   font-size: 2rem;
 }
-.container .form {
-  display: flex;
-  align-items: center;
-  font-size: 0.9rem;
-  flex-wrap: wrap;
-}
-.container .form .title-input {
-  padding: 0.6rem 1rem;
-  border: none;
-  outline: none;
-  box-shadow: 0 0 0.75em rgba(0, 0, 0, 0.2);
-  border-radius: 0.3rem;
-  margin-right: 0.7rem;
-  width: 12.1rem;
-}
-.container .form .get-items-button {
-  background-color: #2e3239;
-  color: #fff;
-  box-shadow: 0 0 0.75em rgba(0, 0, 0, 0.2);
-  border: 0;
-  border-radius: 0.3rem;
-  width: 4rem;
-  height: 2.2rem;
-}
-.container .form .get-items-button:hover {
-  cursor: pointer;
-}
-.container .form img {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 .container .to-do-list {
   display: grid;
   border-radius: 0.3rem;
@@ -125,4 +93,91 @@ body {
 }
 .container .to-do-list .to-do-items .del-btn:hover {
   cursor: pointer;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  flex-wrap: wrap;
+}
+.form .title-input {
+  padding: 0.6rem 1rem;
+  border: none;
+  outline: none;
+  box-shadow: 0 0 0.75em rgba(0, 0, 0, 0.2);
+  border-radius: 0.3rem;
+  margin-right: 0.7rem;
+  width: 12.1rem;
+}
+.form .get-items-button {
+  background-color: #2e3239;
+  color: #fff;
+  box-shadow: 0 0 0.75em rgba(0, 0, 0, 0.2);
+  border: 0;
+  border-radius: 0.3rem;
+  width: 4rem;
+  height: 2.2rem;
+}
+.form .get-items-button:hover {
+  cursor: pointer;
+}
+.form img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup_container {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0.75em rgba(0, 0, 0, 0.2);
+  background-color: white;
+  border-radius: 0.5rem;
+  width: 20rem;
+  padding-block: 1.2rem;
+}
+.popup_container .edit-items-button {
+  background-color: #2e3239;
+  color: #fff;
+  box-shadow: 0 0 0.75em rgba(0, 0, 0, 0.2);
+  border: 0;
+  border-radius: 0.3rem;
+  width: 4rem;
+  height: 2.2rem;
+}
+.popup_container .edit-items-button:hover {
+  cursor: pointer;
+}
+.popup_container .popup {
+  width: fit-content;
+  margin-inline: auto;
+  position: relative;
+}
+.popup_container .popup h2 {
+  color: #2e3239;
+  margin-bottom: 0.4rem;
+}
+.popup_container .popup .quit {
+  position: absolute;
+  right: -1rem;
+  top: -0.5rem;
+  border: 0;
+  background-color: transparent;
+}
+.popup_container .popup .quit img {
+  width: 0.85rem;
+  height: 0.7rem;
+}
+.popup_container .popup .quit:hover {
+  cursor: pointer;
+}
+
+.popup_container[data-visible] {
+  display: block;
+  position: absolute;
+  z-index: 1;
 }
